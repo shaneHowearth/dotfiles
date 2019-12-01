@@ -1,0 +1,4 @@
+testcases := map[string]struct{}{}
+for name, tc := range testcases {
+	t.Run(name, func(t *testing.T) {})
+}
