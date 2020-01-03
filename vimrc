@@ -4,10 +4,11 @@ filetype plugin indent on
 filetype on
 syntax on
 set runtimepath^=~/.vim/bundle/nerdtree
+set runtimepath^=~/.vim/bundle/auto-pairs
 set runtimepath^=~/.vim/bundle/vim-fugitive
 set runtimepath^=~/.vim/bundle/vim-go
 set runtimepath^=~/.vim/bundle/vim-rails
-set runtimepath^=~/.vim/bundle/vim-ruby
+set runtimepath^=~/.vim/bundle/vim-abolish
 set runtimepath^=~/.vim/bundle/semantic-highlight
 set runtimepath+=~/.fzf
 set smartindent
@@ -16,7 +17,6 @@ set shiftwidth=4
 set expandtab
 set nocompatible
 set number
-set paste
 set background=dark
 "Make lowercase searches case-insensitive, mixed/upper-case case-sensitive
 set ignorecase
@@ -25,8 +25,6 @@ set hlsearch
 set incsearch
 set clipboard=unnamedplus
 set textwidth=80
-
-
 
 "Show file name in window header
 set title
@@ -37,24 +35,12 @@ set ruler
 "Prevent lines breaking in the middle of words
 set lbr
 
-
 "set colorcolumn=50,72,80
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 set list
 set laststatus=2
 
-" Key maps
-"Avoid q: typo that pops up the annoying command history box
-nnoremap q: :q
-nnoremap <silent> <f2> :NERDTreeFind<cr>
-nnoremap <silent> <f3> :NERDTreeToggle<cr>
-nnoremap <silent> <f4> :r ~/.vim/snippets/goTest<cr>
-nnoremap <F5> :e!<cr>
-" nnoremap <silent> <f6> :Gblame<cr>
-nnoremap <F8>  :SemanticHighlightToggle<cr>
-" set scroll lock per pane
-nnoremap <f9> :set scb!<cr>
-" toggle GBlame
+" toggle GBlame On/Off
 function! s:ToggleBlame()
     if &l:filetype ==# 'fugitiveblame'
         close
@@ -63,7 +49,20 @@ function! s:ToggleBlame()
     endif
 endfunction
 
+" Key maps
+"Avoid q: typo that pops up the annoying command history box
+nnoremap q: :q
+nnoremap <silent> <f2> :NERDTreeFind<cr>
+nnoremap <silent> <f3> :NERDTreeToggle<cr>
+nnoremap <silent> <f4> :r ~/.vim/snippets/goErr<cr>
+nnoremap <F5> :e!<cr>
 nnoremap <silent> <f6> :call <SID>ToggleBlame()<CR>
+nnoremap <silent> <f7> :r ~/.vim/snippets/goTest<cr>
+nnoremap <F8>  :SemanticHighlightToggle<cr>
+" set scroll lock per pane
+nnoremap <f9> :set scb!<cr>
+
+
 
 if !exists("autocommands_loaded")
   let autocommands_loaded = 1
@@ -80,16 +79,7 @@ let g:go_info_mode = "gopls"
 let s:counter = 0
 let s:timer = -1
 
-"Ruby
-autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2
-autocmd FileType eruby setlocal expandtab shiftwidth=2 tabstop=2
-
-"Vim-ruby
-let g:ruby_indent_access_modifier_style = 'normal'
-let g:ruby_indent_assignment_style = 'variable'
-let g:ruby_indent_block_style = 'do'
-
-"Comments
+"Comments */
 noremap <silent> \ :Commentary<cr>
 autocmd FileType ruby setlocal commentstring=#\ %s
 
@@ -115,5 +105,4 @@ set balloonexpr=go#tool#DescribeBalloon()
 set balloondelay=250
 set ballooneval
 set balloonevalterm
-au BufEnter * if (exists("b:default")) | let b:current_colors=default \| execute "colorscheme " . b:colors_name | endif
 au BufLeave * if (exists("b:desert")) | execute "colorscheme " . b:current_colors | endif
