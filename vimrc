@@ -17,6 +17,7 @@ set shiftwidth=4
 set expandtab
 set nocompatible
 set number
+" set paste
 set background=dark
 "Make lowercase searches case-insensitive, mixed/upper-case case-sensitive
 set ignorecase
@@ -25,6 +26,8 @@ set hlsearch
 set incsearch
 set clipboard=unnamedplus
 set textwidth=80
+
+
 
 "Show file name in window header
 set title
@@ -35,12 +38,13 @@ set ruler
 "Prevent lines breaking in the middle of words
 set lbr
 
+
 "set colorcolumn=50,72,80
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 set list
 set laststatus=2
 
-" toggle GBlame On/Off
+" toggle GBlame
 function! s:ToggleBlame()
     if &l:filetype ==# 'fugitiveblame'
         close
@@ -52,16 +56,15 @@ endfunction
 " Key maps
 "Avoid q: typo that pops up the annoying command history box
 nnoremap q: :q
-nnoremap <silent> <f2> :NERDTreeFind<cr>
-nnoremap <silent> <f3> :NERDTreeToggle<cr>
-nnoremap <silent> <f4> :r ~/.vim/snippets/goErr<cr>
-nnoremap <F5> :e!<cr>
-nnoremap <silent> <f6> :call <SID>ToggleBlame()<CR>
-nnoremap <silent> <f7> :r ~/.vim/snippets/goTest<cr>
-nnoremap <F8>  :SemanticHighlightToggle<cr>
+map <F2> :setlocal spell! spelllang=en_us<CR>
+nnoremap <SILENT> <F3> :NERDTreeToggle<CR>
+nnoremap <SILENT> <F4> :r ~/.vim/snippets/goErr<CR>
+nnoremap <F5> :e!<CR>
+nnoremap <SILENT> <F6> :call <SID>ToggleBlame()<CR>
+nnoremap <SILENT> <F7> :r ~/.vim/snippets/goTest<CR>
+nnoremap <F8>  :SemanticHighlightToggle<CR>
 " set scroll lock per pane
-nnoremap <f9> :set scb!<cr>
-
+nnoremap <F9> :set scb!<CR>
 
 
 if !exists("autocommands_loaded")
@@ -71,6 +74,7 @@ if !exists("autocommands_loaded")
   autocmd BufWritePost *.go :GoVet
   autocmd BufWritePost *.go :GoLint
 endif
+
 let g:go_metalinter_command = "golangci-lint run"
 let g:go_fmt_command = "goimports"
 let g:go_def_mode = "gopls"
@@ -80,7 +84,7 @@ let s:counter = 0
 let s:timer = -1
 
 "Comments */
-noremap <silent> \ :Commentary<cr>
+noremap <SILENT> \ :Commentary<CR>
 autocmd FileType ruby setlocal commentstring=#\ %s
 
 "FZF
