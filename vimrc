@@ -27,8 +27,6 @@ set incsearch
 set clipboard=unnamedplus
 set textwidth=80
 
-
-
 "Show file name in window header
 set title
 
@@ -56,15 +54,16 @@ endfunction
 " Key maps
 "Avoid q: typo that pops up the annoying command history box
 nnoremap q: :q
-map <F2> :setlocal spell! spelllang=en_us<CR>
-nnoremap <SILENT> <F3> :NERDTreeToggle<CR>
-nnoremap <SILENT> <F4> :r ~/.vim/snippets/goErr<CR>
-nnoremap <F5> :e!<CR>
-nnoremap <SILENT> <F6> :call <SID>ToggleBlame()<CR>
-nnoremap <SILENT> <F7> :r ~/.vim/snippets/goTest<CR>
-nnoremap <F8>  :SemanticHighlightToggle<CR>
+nnoremap <silent> \ :Commentary<cr>
+nnoremap <F2> :setlocal spell! spelllang=en_us<cr>
+nnoremap <silent> <F3> :NERDTreeToggle<cr>
+" nnoremap <F5> :e!<cr>
+nnoremap <silent> <F6> :call <sid>ToggleBlame()<cr>
+nnoremap <silent> <F7> :r ~/.vim/snippets/goErr<cr>
+nnoremap <silent> <F8> :r ~/.vim/snippets/goTest<cr>
+" nnoremap <F8>  :SemanticHighlightToggle<cr>
 " set scroll lock per pane
-nnoremap <F9> :set scb!<CR>
+nnoremap <F9> :set scb!<cr>
 
 
 if !exists("autocommands_loaded")
@@ -84,7 +83,6 @@ let s:counter = 0
 let s:timer = -1
 
 "Comments */
-noremap <SILENT> \ :Commentary<CR>
 autocmd FileType ruby setlocal commentstring=#\ %s
 
 "FZF
@@ -109,4 +107,4 @@ set balloonexpr=go#tool#DescribeBalloon()
 set balloondelay=250
 set ballooneval
 set balloonevalterm
-au BufLeave * if (exists("b:desert")) | execute "colorscheme " . b:current_colors | endif
+"au BufLeave * if (exists("b:desert")) | execute "colorscheme " . b:current_colors | endif
